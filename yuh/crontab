@@ -1,0 +1,4 @@
+* * * * * /etc/record/record.sh >> /tmp/record.log 2>&1
+*/10 * * * * /etc/record/rclone_sync.sh >> /tmp/rclone_sync.log 2>&1
+*/3 * * * * /etc/record/move_files.sh >> /tmp/move_files.log 2>&1
+* * * * * /etc/record/list_files.sh >> /tmp/list_files.log 2>&1

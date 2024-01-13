@@ -1,0 +1,23 @@
+1. Change Time Zone
+timedatectl list-timezones
+sudo timedatectl set-timezone Your/Time_Zone
+sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
+- Verify the Change:
+timedatectl
+
+2. install ffmpeg and ffmpeg-devel
+- Enable RPM Fusion Free Repository:
+sudo yum localinstall --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm
+
+- Enable RPM Fusion Non-Free Repository (Optional):
+sudo yum localinstall --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+
+- Install FFmpeg:
+sudo yum install ffmpeg
+
+- Install FFmpeg Development Package:
+sudo yum install ffmpeg-devel
+
+- Verify Installation:
+ffmpeg -version
