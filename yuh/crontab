@@ -1,4 +1,16 @@
-* * * * * /etc/record/record.sh >> /tmp/record.log 2>&1
-*/10 * * * * /etc/record/rclone_sync.sh >> /tmp/rclone_sync.log 2>&1
+# Kitchen camera records every minutes
+* * * * * /etc/record/record_kitchen.sh >> /tmp/record_kitchen.log 2>&1
+
+# Living room camera records every minutes
+* * * * * /etc/record/record_living_room.sh >> /tmp/record_living_room.log 2>&1
+
+# Outdoor camera records every minutes
+* * * * * /etc/record/record_outdoor.sh >> /tmp/record_outdoor.log 2>&1
+
+
+# move_files runs every 3 minutes
 */3 * * * * /etc/record/move_files.sh >> /tmp/move_files.log 2>&1
-* * * * * /etc/record/list_files.sh >> /tmp/list_files.log 2>&1
+
+# rclone_sync.sh runs every 2 minutes to ensure all files have been moved before syncing
+*/2 * * * * /etc/record/rclone_sync.sh >> /tmp/rclone_sync.log 2>&1
+*/2 * * * * /etc/record/list_files.sh >> /tmp/list_files.log 2>&1

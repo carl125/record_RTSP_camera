@@ -1,28 +1,38 @@
 #!/bin/bash
 
-# Define the source (temporary) and destination directories
-temp_camera="/etc/record/temp"
-directory="/etc/record/camera"
-date_today=$(date +\%d-\%m-\%Y)
-path_today="$directory/$date_today"
+# Directories for each camera
+kitchen_dir="/etc/record/camera/kitchen"
+living_room_dir="/etc/record/camera/living_room"
+outdoor_dir="/etc/record/camera/outdoor"
 
-# Move the completed recordings to the sync directory
-# This assumes that the files are named with their completion timestamp
-for file in "$temp_camera"/*; do
-    if [ -f "$file" ]; then
-        # Get the current time and the last modification time of the file
-        current_time=$(date +%s)
-        last_mod_time=$(stat -c %Y "$file")
+# Temporary directories for each camera
+temp_kitchen="/etc/record/temp/kitchen"
+temp_living_room="/etc/record/temp/living_room"
+temp_outdoor="/etc/record/temp/outdoor"
 
-        # Calculate the age of the file in seconds
-        file_age=$((current_time - last_mod_time))
-        echo "File $file (last_mod_time: $last_mod_time - file_age: $file_age)"
+# Function to move files
+move_files () {
+    local source_dir=$1
+    local target_dir=$2
 
-        # If the file is older than a threshold (e.g., 120 seconds), it is assumed to be complete
-        if [ "$file_age" -gt 120 ]; then
-            mv "$file" "$path_today"
-        else
-            echo "File $file is still too recent or may still be written to."
+    for file in "$source_dir"/*; do
+        if [ -f "$file" ]; then
+            current_time=$(date +%s)
+            last_mod_time=$(stat -c %Y "$file")
+            file_age=$((current_time - last_mod_time))
+
+            echo "File $file (last_mod_time: $last_mod_time - file_age: $file_age)"
+
+            if [ "$file_age" -gt 120 ]; then
+                mv "$file" "$target_dir"
+            else
+                echo "File $file is still too recent or may still be written to."
+            fi
         fi
-    fi
-done
+    done
+}
+
+# Move files for each camera
+move_files "$temp_kitchen" "$kitchen_dir"
+move_files "$temp_living_room" "$living_room_dir"
+move_files "$temp_outdoor" "$outdoor_dir"

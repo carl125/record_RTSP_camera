@@ -13,4 +13,4 @@ else
 fi
 #chờ 3s và bắt đầu record video trong tầm 1h, vị trí lưu video trong /etc/record/camera
 sleep 3
-sudo ffmpeg -i rtsp://user:pass@tenmiendns:port/profile0 -vcodec copy -r 60 -t 3580 -y /etc/record/camera/$(date +\%d-\%m-\%Y)/$(date +\%d-\%m-\%Y--\%H-\%M).mp4
+sudo ffmpeg -i rtsp://user:pass@tenmiendns:port/profile0 -vcodec copy -r 60 -t 80 -y /etc/record/camera/$(date +\%d-\%m-\%Y)/$(date +\%d-\%m-\%Y--\%H-\%M).mp4
