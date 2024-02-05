@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Directories for each camera
-kitchen_dir="/etc/record/camera/kitchen"
-living_room_dir="/etc/record/camera/living_room"
-outdoor_dir="/etc/record/camera/outdoor"
+kitchen_dir="/etc/record/to_concatenate/kitchen"
+living_room_dir="/etc/record/to_concatenate/living_room"
+outdoor_dir="/etc/record/to_concatenate/outdoor"
 
 # Temporary directories for each camera
 temp_kitchen="/etc/record/temp/kitchen"
@@ -36,3 +36,4 @@ move_files () {
 move_files "$temp_kitchen" "$kitchen_dir"
 move_files "$temp_living_room" "$living_room_dir"
 move_files "$temp_outdoor" "$outdoor_dir"
+

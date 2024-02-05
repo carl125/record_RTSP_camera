@@ -20,7 +20,8 @@ upload_camera_dir() {
     for file in "$base_directory/$camera_dir"/*; do
         if [ -f "$file" ]; then
             # Extract the date from the file name
-            file_date=$(basename "$file" | awk -F '--' '{print $1}')
+            # Assuming file names are like '04-02-2024__23-57_to_05-02-2024__00-03.mp4'
+            file_date=$(basename "$file" | awk -F '__' '{print $1}')
 
             # Start rclone copy in the background and save its PID
             rclone copy "$file" "$cloud_dir"/"$file_date" &

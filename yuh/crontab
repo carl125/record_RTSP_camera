@@ -8,9 +8,14 @@
 * * * * * /etc/record/record_outdoor.sh >> /tmp/record_outdoor.log 2>&1
 
 
-# move_files runs every 3 minutes
-*/3 * * * * /etc/record/move_files.sh >> /tmp/move_files.log 2>&1
+# move_files runs every 40 minutes
+*/40 * * * * /etc/record/move_files.sh >> /tmp/move_files.log 2>&1
 
-# rclone_sync.sh runs every 2 minutes to ensure all files have been moved before syncing
-*/2 * * * * /etc/record/rclone_sync.sh >> /tmp/rclone_sync.log 2>&1
-*/2 * * * * /etc/record/list_files.sh >> /tmp/list_files.log 2>&1
+# merge_clips.sh runs every 50 minutes
+*/50 * * * * /etc/record/merge_clips.sh >> /tmp/merge_clips.log 2>&1
+
+
+# rclone_sync.sh runs every hour to ensure all files have been moved before syncing
+* * * * * /etc/record/rclone_sync.sh >> /tmp/rclone_sync.log 2>&1
+#*/2 * * * * /etc/record/list_files.sh >> /tmp/list_files.log 2>&1
+

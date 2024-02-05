@@ -21,3 +21,14 @@ sudo yum install ffmpeg-devel
 
 - Verify Installation:
 ffmpeg -version
+
+
+workflow:
+record_kitchen.sh, record_living_room.sh, record_outdoor.sh sẽ record lại clip theo link rtsp mỗi một phút
+lí do: giảm lỗi trong quá trình ghi, nếu ghi dài thì có thể có sự cố xảy ra (mạng, vps, ...), và phải chờ cron job đến thời điểm tiếp theo mới ghi tiếp được. clip được record và lưu lại tại folder /temp, tương ứng 3 folder với 3 camera
+
+- sau 1 khoảng thời gian thì move_files.sh sẽ được chạy, move toàn bộ các clips đã được ghi hoàn chỉnh tại folder /temp đến folder /to_concatenate
+
+- script merge_clips.sh sẽ đợi và combine các clips trong /to_concatenate, sau khi ghép xong thì move clip mới qua folder /camera, đồng thời xóa các clips nhỏ trong /to_concatenate
+
+- rclone_sync.sh sẽ thực hiện đẩy các clips trong /camera lên onedrive của m$ đồng thời tiếp tục xóa các tiếp trong /camera để đảm bảo disk vps không bị full
